@@ -1,0 +1,736 @@
+Import java.util.HashSet ;
+
+Import java.util.Set ;
+
+
+
+Public class Livre {
+
+    // … (autres attributs existants)
+
+    Private Set<Categorie> categories ;
+
+    
+
+    Public Livre(String titre, String auteur, String isbn, int nbExemplaires) {
+
+        // … (initialisation existante)
+
+        This.categories = new HashSet<>() ;
+
+    }
+
+    
+
+    // Méthodes pour gérer les catégories
+
+    Public void ajouterCategorie(Categorie categorie) {
+
+        Categories.add(categorie) ;
+
+    }
+
+    
+
+    Public void supprimerCategorie(Categorie categorie) {
+
+        Categories.remove(categorie) ;
+
+    }
+
+    
+
+    Public Set<Categorie> getCategories() {
+
+        Return new HashSet<>(categories) ;
+
+    }
+
+    
+
+    Public boolean appartientACategorie(Categorie categorie) {
+
+        Return categories.contains(categorie) ;
+
+    }
+
+    
+
+    // Mise à jour de toString()
+
+    @Override
+
+    Public String toString() {
+
+        StringBuilder sb = new StringBuilder() ;
+
+        Sb.append(titre).append(«  par « ).append(auteur)
+
+          .append(«  (ISBN : « ).append(isbn).append(« ) – « )
+
+          .append(disponibles).append(« / »).append(nbExemplaires).append(«  disponibles ») ;
+
+        
+
+        If ( !categories.isEmpty()) {
+
+            Sb.append(« \n  Catégories : « ) ;
+
+            For (Categorie categorie : categories) {
+
+                Sb.append(categorie.getNom()).append(« , « ) ;
+
+            }
+
+            Sb.delete(sb.length()-2, sb.length()) ; // Retire la dernière virgule
+
+        }
+
+        Return sb.toString() ;
+
+    }
+
+}
+
+
+
+Import java.util.HashMap ;
+
+Import java.util.Map ;
+
+
+
+Public class Bibliotheque {
+
+    // … (autres attributs existants)
+
+    Private Map<String, Categorie> categories ;
+
+    
+
+    Public Bibliotheque(String nom) {
+
+        // … (initialisation existante)
+
+        This.categories = new HashMap<>() ;
+
+        initialiserCategoriesParDefaut() ;
+
+    }
+
+    
+
+    Private void initialiserCategoriesParDefaut() {
+
+        ajouterCategorie(new Categorie(« ROM », « Roman », « Œuvres de fiction narrative »)) ;
+
+        ajouterCategorie(new Categorie(« POL », « Policier », « Romans policiers et thrillers »)) ;
+
+        ajouterCategorie(new Categorie(« SF », « Science-Fiction », « Science-fiction et fantasy »)) ;
+
+        ajouterCategorie(new Categorie(« BD », « Bande Dessinée », « Bandes dessinées et comics »)) ;
+
+        ajouterCategorie(new Categorie(« DOC », « Documentaire », « Ouvrages documentaires »)) ;
+
+        ajouterCategorie(new Categorie(« MAG », « Magazine », « Publications périodiques »)) ;
+
+    }
+
+    
+
+    // Méthodes pour gérer les catégories
+
+    Public void ajouterCategorie(Categorie categorie) {
+
+        Categories.put(categorie.getCode(), categorie) ;
+
+    }
+
+    
+
+    Public Categorie getCategorie(String code) {
+
+        Return categories.get(code) ;
+
+    }
+
+    
+
+    Public List<Categorie> getToutesCategories() {
+
+        Return new ArrayList<>(categories.values()) ;
+
+    }
+
+    
+
+    // Méthodes de recherche par catégorie
+
+    Public List<Livre> rechercherParCategorie(Categorie categorie) {
+
+        List<Livre> resultats = new ArrayList<>() ;
+
+        For (Livre livre : catalogue) {
+
+            If (livre.appartientACategorie(categorie)) {
+
+                Resultats.add(livre) ;
+
+            }
+
+        }
+
+        Return resultats ;
+
+    }
+
+    
+
+    Public List<Livre> rechercherParCategorie(String codeCategorie) {
+
+        Categorie categorie = categories.get(codeCategorie) ;
+
+        If (categorie != null) {
+
+            Return rechercherParCategorie(categorie) ;
+
+        }
+
+        Return new ArrayList<>() ;
+
+    }
+
+    
+
+    // Mise à jour de l’affichage
+
+    Public void afficherCategories() {
+
+        System.out.println(« \nCatégories disponibles : ») ;
+
+        For (Categorie categorie : categories.values()) {
+
+            Sys
+
+tem.out.println(categorie + «  - «  + categorie.getDescription()) ;
+
+        }
+
+    }
+
+}
+
+
+
+public List<Roman> getRomans() {
+
+    List<Roman> romans = new ArrayList<>();
+
+    for (Livre livre : catalogue) {
+
+        if (livre instanceof Roman) {
+
+            romans.add((Roman) livre);
+
+        }
+
+    }
+
+    return romans;
+
+}
+
+
+
+public List<Magazine> getMagazines() {
+
+    List<Magazine> magazines = new ArrayList<>();
+
+    for (Livre livre : catalogue) {
+
+        if (livre instanceof Magazine) {
+
+            magazines.add((Magazine) livre);
+
+        }
+
+    }
+
+    return magazines;
+
+}
+
+
+
+public void afficherRomans() {
+
+    System.out.println("\nRomans disponibles:");
+
+    for (Roman roman : getRomans()) {
+
+        System.out.println(roman);
+
+    }
+
+}
+
+
+
+public void afficherMagazines() {
+
+    System.out.println("\nMagazines disponibles:");
+
+    for (Magazine magazine : getMagazines()) {
+
+        System.out.println(magazine);
+
+    }
+
+}
+
+
+
+Public class Roman extends Livre {
+
+    Private String genre ;
+
+    Private int nbPages ;
+
+    Private boolean prixLitteraire ;
+
+    
+
+    Public Roman(String titre, String auteur, String isbn, int nbExemplaires, 
+
+                String genre, int nbPages, boolean prixLitteraire) {
+
+        Super(titre, auteur, isbn, nbExemplaires) ;
+
+        This.genre = genre ;
+
+        This.nbPages = nbPages ;
+
+        This.prixLitteraire = prixLitteraire ;
+
+    }
+
+    
+
+    // Getters
+
+    Public String getGenre() { return genre ; }
+
+    Public int getNbPages() { return nbPages ; }
+
+    Public boolean isPrixLitteraire() { return prixLitteraire ; }
+
+    
+
+    // Setters
+
+    Public void setGenre(String genre) { this.genre = genre ; }
+
+    Public void setNbPages(int nbPages) { this.nbPages = nbPages ; }
+
+    Public void setPrixLitteraire(boolean prixLitteraire) { this.prixLitteraire = prixLitteraire ; }
+
+    
+
+    @Override
+
+    Public String toString() {
+
+        String prixInfo = prixLitteraire ? «  (Prix littéraire) » : « « ;
+
+        Return super.toString() + 
+
+               « \n  Type : Roman » + prixInfo + 
+
+               « \n  Genre : «  + genre + 
+
+               « \n  Pages : «  + nbPages ;
+
+    }
+
+}
+
+
+
+Import java.util.ArrayList ;
+
+Import java.util.List ;
+
+
+
+Public class Utilisateur {
+
+    Private String id ;
+
+    Private String nom ;
+
+    Private String prenom ;
+
+    Private String email ;
+
+    Private List<Livre> livresEmpruntes ;
+
+    
+
+    Public Utilisateur(String id, String nom, String prenom, String email) {
+
+        This.id = id ;
+
+        This.nom = nom ;
+
+        This.prenom = prenom ;
+
+        This.email = email ;
+
+        This.livresEmpruntes = new ArrayList<>() ;
+
+    }
+
+    
+
+    // Getters
+
+    Public String getId() { return id ; }
+
+    Public String getNom() { return nom ; }
+
+    Public String getPrenom() { return prenom ; }
+
+    Public String getEmail() { return email ; }
+
+    Public List<Livre> getLivresEmpruntes() { return livresEmpruntes ; }
+
+    
+
+    // Méthodes pour gérer les emprunts
+
+    Public boolean emprunterLivre(Livre livre) {
+
+        If (livre.emprunter()) {
+
+            livresEmpruntes.add(livre) ;
+
+            return true ;
+
+        }
+
+        Return false ;
+
+    }
+
+    
+
+    Public boolean retournerLivre(Livre livre) {
+
+        If (livresEmpruntes.contains(livre)) {
+
+            Livre.retourner() ;
+
+            livresEmpruntes.remove(livre) ;
+
+            return true ;
+
+        }
+
+        Return false ;
+
+    }
+
+    
+
+    @Override
+
+    Public String toString() {
+
+        Return prenom + «  «  + nom + «  (ID : «  + id + « ) – «  + livresEmpruntes.size() + «  livres empruntés » ;
+
+    }
+
+}
+
+Import java.util.List ;
+
+Import java.util.Scanner ;
+
+
+
+Public class Main {
+
+    Public static void main(String[] args) {
+
+        Bibliotheque bibliotheque = new Bibliotheque(« Bibliothèque Municipale ») ;
+
+        initialiserDonnees(bibliotheque) ;
+
+        afficherMenuPrincipal(bibliotheque) ;
+
+    }
+
+
+
+    Private static void initialiserDonnees(Bibliotheque bibliotheque) {
+
+        // Initialisation des catégories
+
+        Bibliotheque.ajouterCategorie(new Categorie(« ROM », « Roman », « Œuvres de fiction narrative »)) ;
+
+        Bibliotheque.ajouterCategorie(new Categorie(« POL », « Policier », « Romans policiers »)) ;
+
+        Bibliotheque.ajouterCategorie(new Categorie(« SF », « Science-Fiction », « Livres de SF »)) ;
+
+        Bibliotheque.ajouterCategorie(new Categorie(« BD », « Bande Dessinée », « Bandes dessinées »)) ;
+
+        Bibliotheque.ajouterCategorie(new Categorie(« DOC », « Documentaire », « Ouvrages documentaires »)) ;
+
+        Bibliotheque.ajouterCategorie(new Categorie(« MAG », « Magazine », « Publications périodiques »)) ;
+
+
+
+        // Ajout de livres avec leurs catégories
+
+        Livre livre1 = new Livre(« Le Petit Prince », « Antoine de Saint-Exupéry », « 9782070408504 », 5) ;
+
+        Livre1.ajouterCategorie(bibliotheque.getCategorie(« ROM »)) ;
+
+        Bibliotheque.ajouterLivre(livre1) ;
+
+
+
+        Livre livre2 = new Livre(« 1984 », « George Orwell », « 9782070368228 », 3) ;
+
+        Livre2.ajouterCategorie(bibliotheque.getCategorie(« ROM »)) ;
+
+        Livre2.ajouterCategorie(bibliotheque.getCategorie(« SF »)) ;
+
+        Bibliotheque.ajouterLivre(livre2) ;
+
+
+
+        Livre livre3 = new Livre(« Astérix », « Goscinny », « 9782012101345 », 10) ;
+
+        Livre3.ajouterCategorie(bibliotheque.getCategorie(« BD »)) ;
+
+        Bibliotheque.ajouterLivre(livre3) ;
+
+    }
+
+
+
+    Private static void afficherMenuPrincipal(Bibliotheque bibliotheque) {
+
+        Scanner scanner = new Scanner(System.in) ;
+
+        Int choix ;
+
+
+
+        Do {
+
+            System.out.println(« \n=== MENU PRINCIPAL === ») ;
+
+            System.out.println(« 1. Lister tous les livres ») ;
+
+            System.out.println(« 2. Rechercher un livre par titre ») ;
+
+            System.out.println(« 3. Afficher les catégories ») ;
+
+            System.out.println(« 0. Quitter ») ;
+
+            System.out.print(« Votre choix : « ) ;
+
+
+
+            Choix = scanner.nextInt() ;
+
+            Scanner.nextLine() ; // Nettoyer le buffer
+
+
+
+            Switch (choix) {
+
+                Case 1 :
+
+                    afficherListeLivres(bibliotheque, scanner) ;
+
+                    break ;
+
+                case 2 :
+
+                    rechercherLivre(bibliotheque, scanner) ;
+
+                    break ;
+
+                case 3 :
+
+                    afficherCategories(bibliotheque) ;
+
+                    break ;
+
+                case 0 :
+
+                    System.out.println(« Au revoir ! ») ;
+
+                    Break ;
+
+                Default :
+
+                    System.out.println(« Choix invalide ! ») ;
+
+            }
+
+        } while (choix != 0) ;
+
+
+
+        Scanner.close() ;
+
+    }
+
+
+
+    Private static void afficherListeLivres(Bibliotheque bibliotheque, Scanner scanner) {
+
+        System.out.println(« \n=== LISTE DES LIVRES === ») ;
+
+        List<Livre> livres = bibliotheque.getCatalogue() ;
+
+        
+
+        For (int i = 0 ; i < livres.size() ; i++) {
+
+            System.out.println((i + 1) + « . «  + livres.get(i).getTitre() + «  - «  + livres.get(i).getAuteur()) ;
+
+        }
+
+
+
+        System.out.print(« \nSélectionnez un livre (0 pour retourner) : « ) ;
+
+        Int selection = scanner.nextInt() ;
+
+        Scanner.nextLine() ;
+
+
+
+        If (selection > 0 && selection <= livres.size()) {
+
+            afficherDetailsLivre(livres.get(selection – 1)) ;
+
+        }
+
+    }
+
+
+
+    Private static void afficherDetailsLivre(Livre livre) {
+
+        System.out.println(« \n=== DÉTAILS DU LIVRE === ») ;
+
+        System.out.println(« Titre : «  + livre.getTitre()) ;
+
+        System.out.println(« Auteur : «  + livre.getAuteur()) ;
+
+        System.out.println(« ISBN : «  + livre.getIsbn()) ;
+
+        System.out.println(« Exemplaires disponibles : «  + livre.getDisponibles() + « / » + livre.getNbExemplaires()) ;
+
+        
+
+        System.out.print(« Catégories : « ) ;
+
+        If (livre.getCategories().isEmpty()) {
+
+            System.out.println(« Aucune catégorie ») ;
+
+        } else {
+
+            For (Categorie categorie : livre.getCategories()) {
+
+                System.out.print(categorie.getNom() + «  | « ) ;
+
+            }
+
+            System.out.println() ;
+
+        }
+
+    }
+
+
+
+    Private static void rechercherLivre(Bibliotheque bibliotheque, Scanner scanner) {
+
+        System.out.print(« \nEntrez un mot-clé du titre : « ) ;
+
+        String recherche = scanner.nextLine() ;
+
+        
+
+        List<Livre> resultats = bibliotheque.rechercherParTitre(recherche) ;
+
+        
+
+        If (resultats.isEmpty()) {
+
+            System.out.println(« Aucun livre trouvé. ») ;
+
+            Return ;
+
+        }
+
+
+
+        System.out.println(« \nRésultats de la recherche : ») ;
+
+        For (int i = 0 ; i < resultats.size() ; i++) {
+
+            System.out.println((i + 1) + « . «  + resultats.get(i).getTitre() + «  - «  + resultats.get(i).getAuteur()) ;
+
+        }
+
+
+
+        System.out.print(« \nSélectionnez un livre (0 pour annuler) : « ) ;
+
+        Int selection = scanner.nextInt() ;
+
+        Scanner.nextLine() ;
+
+
+
+        If (selection > 0 && selection <= resultats.size()) {
+
+            afficherDetailsLivre(resultats.get(selection – 1)) ;
+
+        }
+
+    }
+
+
+
+    Private static void afficherCategories(Bibliotheque bibliotheque) {
+
+        System.out.println(« \n=== CATÉGORIES DISPONIBLES === ») ;
+
+        For (Categorie categorie : bibliotheque.getToutesCategories()) {
+
+            System.out.println(« - «  + categorie.getNom() + «  («  + categorie.getCode() + « ) ») ;
+
+            System.out.println(«   «  + categorie.getDescription()) ;
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
